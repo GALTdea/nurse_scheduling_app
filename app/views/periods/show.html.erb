@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @period %>
+<br>
+
+<% @period.shifts.each do |shift| %>
+  <%= link_to shift.date, shift_path(shift) %> <br>
+<% end %>
+
+
+<div>
+  <%= link_to "Edit this period", edit_period_path(@period) %> |
+  <%= link_to "Back to periods", periods_path %>
+  <%= button_to "Destroy this period", @period, method: :delete %>
+</div>

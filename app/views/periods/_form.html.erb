@@ -1,0 +1,37 @@
+<%= form_with(model: period) do |form| %>
+  <% if period.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(period.errors.count, "error") %> prohibited this period from being saved:</h2>
+
+      <ul>
+        <% period.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :number, style: "display: block" %>
+    <%= form.text_field :number %>
+  </div>
+
+  <div>
+    <%= form.label :begining_date, style: "display: block" %>
+    <%= form.date_field :begining_date %>
+  </div>
+
+  <div>
+    <%= form.label :end_date, style: "display: block" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

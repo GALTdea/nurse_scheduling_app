@@ -1,0 +1,24 @@
+<div>
+  <%= link_to "Edit this shift", edit_shift_path(@shift) %> |
+  <%= link_to "Back to shifts", shifts_path %>
+
+  <%= button_to "Destroy this shift", @shift, method: :delete %>
+</div>
+
+<%= form_with model: Assignment.new, method: :post  do |form| %>
+  <%= form.hidden_field :shift_id, value: @shift.id %>
+  <%= form.collection_select( :nurse_id, @shift.unassigned_nurses.map, :id, :name, {include_blank: true,  include_hidden: false , multiple: true, class:""} ) %>
+
+  <%= form.submit %>
+<% end %>
+
+
+
+<br>
+<br>
+<div>
+  <% @shift.nurses.each do |n| %>
+    <%= n.name %> <br>
+  <% end %>
+  
+</div>
