@@ -10,15 +10,19 @@ class Nurse < ApplicationRecord
     if  @total_assignments_available >= @total_assignments_needed
       3
     elsif @total_assignments_needed > @total_assignments_available
+      p "#{ (@total_assignments_needed - @total_nurses) * 12 } hours needed of overtime"
        ((((@total_assignments_needed)/3.0).ceil).to_f / @total_nurses).ceil + 3
+     
     end
+   
   end
 
+  
 
   def self.balanced_schedule( nurses_per_day)
     schedule = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], "Thursday" => [], "Friday" => [], "Saturday" => [], "Sunday" => [] }
     days_worked = {}
-    days_needed = (nurses_per_day.sum / 3.0).ceil
+    @shifts_per_nurse_needed = self.nurses_needed( [10, 10, 10, 10, 10, 10, 10])
 
     last_weekend_nurse = nil
 
@@ -28,7 +32,6 @@ class Nurse < ApplicationRecord
       days_worked[nurse] = 0
     end
     days_worked
-   
     (0..6).each do |day|
       "#{schedule[Date::DAYNAMES[day]]} iteration"
       (1..nurses_per_day[day]).each do |nurse_number|
@@ -41,7 +44,7 @@ class Nurse < ApplicationRecord
        
             nurses = Nurse.all.reverse.map(&:name)
           end
-          if days_worked[nurse] >= self.nurses_needed( nurses_per_day)
+          if days_worked[nurse] >= @shifts_per_nurse_needed
             nurse = nil
 
           end
@@ -49,10 +52,7 @@ class Nurse < ApplicationRecord
 
           days_worked[nurse] += 1
         end
-
-        # p "#{day}"
       end
-
     end
     schedule
   end 
