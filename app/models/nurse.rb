@@ -1,7 +1,8 @@
 class Nurse < ApplicationRecord
   has_many :assignments
   has_many :shifts, through: :assignments
-  @total_nurses = Nurse.all.count
+  @nurses = Nurse.all
+  @total_nurses = @nurses.count
 
   def self.nurses_needed( nurses_per_day)
     @total_assignments_needed = nurses_per_day.sum
@@ -12,9 +13,7 @@ class Nurse < ApplicationRecord
     elsif @total_assignments_needed > @total_assignments_available
       p "#{ (@total_assignments_needed - @total_nurses) * 12 } hours needed of overtime"
        ((((@total_assignments_needed)/3.0).ceil).to_f / @total_nurses).ceil + 3
-     
     end
-   
   end
 
   
@@ -49,16 +48,45 @@ class Nurse < ApplicationRecord
 
           end
           schedule[Date::DAYNAMES[day]] << nurse
-
           days_worked[nurse] += 1
         end
       end
     end
-    schedule
-  end 
+ 
+    nurses_schedule = {}
+    
+
+    @nurses.map(&:name).each do |nurse|
+      nurse
+     nurses_schedule[nurse] = []
+    end
+
+    @nurses.map(&:name).each do |nurse|
+
+      schedule.each do |day, nurses|
+        if nurses.include?(nurse)
+          nurses_schedule[nurse] << day
+        end
+      end
+      p "#{nurse} is scheduled to work #{nurses_schedule[nurse].count} days: #{nurses_schedule[nurse].join(', ')}"
+    end
+    
+
+    
+
+    # nurses_schedule
+
+     schedule
+  end
 
 
-  
+  def self.nurse_schedule
+
+    @nurses.each do |nurse|
+
+    end
+
+  end
 end
 
 
@@ -67,6 +95,30 @@ end
 
 
 =begin
+NOTE: 1/25
+
+  - added nurse_schedule method to return a hash of nurses and the days they are scheduled to work
+
+
+
+
+
+ - fixed issues where method wasn't covering all days. 
+ - added a method to calculate the number of nurses needed to staff all days.
+
+ - returning
+  {
+  "Monday"=>["nurse10", "nurse11", "nurse12", "nurse13", "nurse14", "nurse14", "nurse13", "nurse12", "nurse11", "nurse10"],
+  "Tuesday"=>["nurse9", "nurse8", "nurse7", "nurse6", "nurse5", "nurse4", "nurse3", "nurse2", "nurse1", "nurse0"],
+  "Wednesday"=>["nurse14", "nurse13", "nurse12", "nurse11", "nurse10", "nurse9", "nurse8", "nurse7", "nurse6", "nurse5"],
+  "Thursday"=>["nurse4", "nurse3", "nurse2", "nurse1", "nurse0", "nurse14", "nurse13", "nurse12", "nurse11", "nurse10"],
+  "Friday"=>["nurse9", "nurse8", "nurse7", "nurse6", "nurse5", "nurse4", "nurse3", "nurse2", "nurse1", "nurse0"],
+  "Saturday"=>["nurse14", "nurse13", "nurse12", "nurse11", "nurse10", "nurse9", "nurse8", "nurse7", "nurse6", "nurse5"],
+  "Sunday"=>["nurse0", "nurse1", "nurse2", "nurse3", "nurse4", "nurse5", "nurse6", "nurse7", "nurse8", "nurse9"]}
+
+
+
+
 # NOTE: 
  Nurse.balanced_schedule([10, 10, 10, 10, 10, 10, 10])
 => {"Monday"=>["nurse10", "nurse11", "nurse12", "nurse13", "nurse14"], "Tuesday"=>[], "Wednesday"=>[], "Thursday"=>[], "Friday"=>[], "Saturday"=>[], "Sunday"=>["nurse0", "nurse1", "nurse2", "nurse3", "nurse4", "nurse5", "nurse6", "nurse7", "nurse8", "nurse9"]}
