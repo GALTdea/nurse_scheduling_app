@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-nurses = 15.times.map do |i|
+nurses = 150.times.map do |i|
   Nurse.create(name: "nurse#{i}", time: i)
 end
