@@ -4,6 +4,18 @@ class Nurse < ApplicationRecord
   @nurses = Nurse.all
   @total_nurses = @nurses.count
 
+
+  
+  def self.assignments_info
+    period = Period.last
+     assignments = period.shifts
+
+
+    assignments.each do |a|
+      p a.nurses
+    end
+  end
+
   def self.nurses_needed( nurses_per_day)
     @total_assignments_needed = nurses_per_day.sum
     @total_assignments_available = @total_nurses * 3
@@ -29,12 +41,9 @@ class Nurse < ApplicationRecord
       days_worked[nurse] = 0
       # {"nurse0"=>0, "nurse1"=>0, "nurse2"=>0, "nurse3"=>0, "nurse4"=>0, "nurse5"=>0, "nurse6"=>0, "nurse7"=>0, "nurse8"=>0, "nurse9"=>0, "nurse10"=>0, "nurse11"=>0, "nurse12"=>0, "nurse13"=>0, "nurse14"=>0}
     end
-    days_worked
 
     (0..6).each do |day|
-      "#{schedule[Date::DAYNAMES[day]]} iteration"
       (1..nurses_per_day[day]).each do |nurse_number|
-
         nurse = nil
         if nurse.nil? 
           nurse = nurses.shift
@@ -51,7 +60,6 @@ class Nurse < ApplicationRecord
     end
  
     nurses_schedule = {}
-    
 
     @nurses.map(&:name).each do |nurse|
       nurse

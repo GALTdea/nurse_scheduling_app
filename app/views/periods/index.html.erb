@@ -1,7 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Periods</h1>
-
+<h4>A period is a two week period</h4>
+<h3><%= link_to "New period", new_period_path %></h3>
 <div id="periods">
   <% @periods.each do |period| %>
     <%= render period %>
@@ -10,5 +11,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New period", new_period_path %>
