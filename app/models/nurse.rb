@@ -4,7 +4,7 @@ class Nurse < ApplicationRecord
   @nurses = Nurse.all
   @total_nurses = @nurses.count
 
-
+  
   
   def self.assignments_info
     period = Period.last

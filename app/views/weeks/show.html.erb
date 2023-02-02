@@ -1,0 +1,29 @@
+<%= link_to 'Years', years_path , class:'' %>
+<p style="color: green"><%= notice %></p>
+
+<%= render @week %>
+<br>
+
+
+<br>
+ 
+
+<%= button_to 'Create Shifts', create_shifts_week_path , class:'' %> <br>
+<%= button_to 'balance schedule', balance_schedule_week_path , class:'' %> <br>
+
+<br>
+
+<br>
+<% @week.shifts.each do |n|  %>
+  <%= link_to  n.name, shift_path(n) %>
+  <br>
+  
+<% end %>
+
+<br>
+<div>
+  <%= link_to "Edit this week", edit_week_path(@week) %> |
+  <%= link_to "Back to Year", year_path(@week.year) %>
+
+  <%= button_to "Destroy this week", @week, method: :delete %>
+</div>

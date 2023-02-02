@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  
+
+
+
+resources :years
+
+resources :weeks do 
+  member do 
+    post 'create_shifts'
+    post 'balance_schedule'
+  end
+end
+  
+
   resources :assignments
 
   resources :periods
@@ -7,7 +21,7 @@ Rails.application.routes.draw do
   resources :shifts do
     resources :assignments, only: [:create]
     # post 'assigns/new', to: 'assignments#create'
-  end
+  end 
 
   # resources :shifts
 
@@ -15,7 +29,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "periods#index"
+  root "years#index"
 end
 =begin
  /shifts/:shift_id/assigns(.:format)      

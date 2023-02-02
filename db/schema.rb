@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_20_194657) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_01_182315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,13 +43,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_20_194657) do
   create_table "shifts", force: :cascade do |t|
     t.string "name"
     t.string "date"
-    t.bigint "period_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["period_id"], name: "index_shifts_on_period_id"
+    t.bigint "week_id", null: false
+    t.index ["week_id"], name: "index_shifts_on_week_id"
+  end
+
+  create_table "weeks", force: :cascade do |t|
+    t.integer "week_number"
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "year_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["year_id"], name: "index_weeks_on_year_id"
+  end
+
+  create_table "years", force: :cascade do |t|
+    t.string "year_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "assignments", "nurses"
   add_foreign_key "assignments", "shifts"
-  add_foreign_key "shifts", "periods"
+  add_foreign_key "shifts", "weeks"
+  add_foreign_key "weeks", "years"
 end

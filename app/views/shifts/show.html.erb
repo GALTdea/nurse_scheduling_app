@@ -1,6 +1,6 @@
 <div>
   <%= link_to "Edit this shift", edit_shift_path(@shift) %> |
-  <%= link_to "Back to shifts", shifts_path %>
+  <%= link_to "Back to week", week_path(@shift.week) %>
 
   <%= button_to "Destroy this shift", @shift, method: :delete %>
 </div>

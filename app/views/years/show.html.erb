@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+<%= link_to 'Years', years_path , class:'' %>
+
+<%= render @year %>
+
+
+<% @year.weeks.each do |w| %>
+  <%#= w.start_date %>
+  <%= link_to w.start_date, week_path(w) %> <br>
+<% end %>
+
+<div>
+  <%= link_to "Edit this year", edit_year_path(@year) %> |
+  <%= link_to "Back to years", years_path %>
+
+  <%= button_to "Destroy this year", @year, method: :delete %>
+</div>
