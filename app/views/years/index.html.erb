@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Years</h1>
-
+<%= link_to "New year", new_year_path %>
+<br>
+<br>
 <div id="years">
   <% @years.each do |year| %>
-    <%= render year %>
+    <%#= render year %>
+     <%= link_to year.year_date, year_path(year) %> <%= button_to 'Destroy', year, method: :delete, class:'' %> <br>
     <p>
-      <%= link_to "Show this year", year %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New year", new_year_path %>
