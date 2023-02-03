@@ -1,3 +1,4 @@
+
 class Week < ApplicationRecord
   belongs_to :year
 
@@ -10,7 +11,7 @@ class Week < ApplicationRecord
   @total_nurses = @nurses.count
   
 
-   @@schedule = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], "Thursday" => [], "Friday" => [], "Saturday" => [], "Sunday" => [] }
+  #  @@schedule = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], "Thursday" => [], "Friday" => [], "Saturday" => [], "Sunday" => [] }
 
 
 
@@ -67,15 +68,18 @@ class Week < ApplicationRecord
     days_worked
   end
   
-  def self.balance_schedule(w, nurses_per_day)
+  def self.balance_schedule(w)
+    nurses_per_day = [10, 10, 10, 10, 10, 10, 10]
     #  schedule = { "Monday" => [], "Tuesday" => [], "Wednesday" => [], "Thursday" => [], "Friday" => [], "Saturday" => [], "Sunday" => [] }
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     schedule = self.create_shifts_nurses_hash(w)
+    # p schedule.values
     days_worked = self.nurse_days_worked(w)
     @shifts_per_nurse_needed = self.nurses_needed( [10, 10, 10, 10, 10, 10, 10])
 
     last_weekend_nurse = nil
 
-    nurses = Nurse.all.map(&:name)
+     nurses = Nurse.all.map(&:name)
 
     # nurses.each do |nurse|
     #   days_worked[nurse] = 0
@@ -84,6 +88,7 @@ class Week < ApplicationRecord
     # end
 
     (0..6).each do |day|
+      # p day
       (1..nurses_per_day[day]).each do |nurse_number|
         nurse = nil
         if nurse.nil? 
@@ -94,9 +99,26 @@ class Week < ApplicationRecord
           if days_worked[nurse] >= @shifts_per_nurse_needed
             nurse = nil
           end
-          @@schedule[Date::DAYNAMES[day]] << nurse
+          # p schedule.keys[day]
+          schedule[schedule.keys[day]] << nurse
+          shift_id = Shift.find_by(id: schedule.keys[day]).id
+          # p nurse
+          nurse_id = Nurse.find_by(name: nurse).id
+          # p schedule
+        #  p shift_id = Shift.find_by(name: schedule.keys[day])
 
-          Assignment.create!( shift_id: Shift.find_by(name: Date::DAYNAMES[day]).id, nurse_id: Nurse.find_by(name: nurse).id)
+          Assignment.create!(shift_id: shift_id, nurse_id: nurse_id  )
+
+          # schedule[schedule.keys[day]] << nurse
+          # schedule[Date::DAYNAMES[day]] << nurse
+          # p schedule[day]
+          # p schedule[Date::DAYNAMES[day]]
+         
+
+          # {20=>["nurse0"], 21=>[], 22=>[], 23=>[], 24=>[], 25=>[], 26=>[]}
+          # schedule[day] << nurse
+          # p schedule[day]
+          # Assignment.create!( shift_id: Shift.find_by(name: Date::DAYNAMES[day]).id, nurse_id: Nurse.find_by(name: nurse).id)
           # Assignment.create!( shift_id: Shift.find_by(id:   )  )
           # instead of adding nurse to schedule, create a new assignment for the nurse and the shift
 
@@ -105,38 +127,13 @@ class Week < ApplicationRecord
       end
     end
  
-    nurses_schedule = {}
-
-    @nurses.map(&:name).each do |nurse|
-      nurse
-     nurses_schedule[nurse] = []
-    end
-    p '-----------------'
-    p '-----------------'
-    p '-----------------'
-    @nurses.map(&:name).each do |nurse|
-      @@schedule.each do |day, nurses|
-        if nurses.include?(nurse)
-          nurses_schedule[nurse] << day
-        end
-      end
-      p "#{nurse} is scheduled to work #{nurses_schedule[nurse].count} days: #{nurses_schedule[nurse].join(', ')}"
-    end
-
-    p '-----------------'
-    p '-----------------'
-    p '-----------------'
-     @@schedule.each do |day, nurses|
-      p "#{day}: #{nurses.count} nurses scheduled: #{nurses.join(', ')}"
-    end
-    
 
     # Week.shifts.each do |shift|
     #   p shift.nurses
     # end
     p '-----------------'
-    @@schedule
-
+    # @@schedule
+    schedule
   end
 
 
