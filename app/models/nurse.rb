@@ -91,7 +91,7 @@ NOTE: 1/25
  Nurse.balanced_schedule([10, 10, 10, 10, 10, 10, 10])
   - added nurse_schedule method to return a hash of nurses and the days they are scheduled to work
 
-  - fixed issues where method wasn't covering all days. 
+  - fixed issues where method wasn't covering all days.
   - added a method to calculate the number of nurses needed to staff all days.
 
   - returning
@@ -109,17 +109,15 @@ NOTE: 1/25
  Nurse.balanced_schedule([10, 10, 10, 10, 10, 10, 10])
 => {"Monday"=>["nurse10", "nurse11", "nurse12", "nurse13", "nurse14"], "Tuesday"=>[], "Wednesday"=>[], "Thursday"=>[], "Friday"=>[], "Saturday"=>[], "Sunday"=>["nurse0", "nurse1", "nurse2", "nurse3", "nurse4", "nurse5", "nurse6", "nurse7", "nurse8", "nurse9"]}
 
-Currently, the code will not staff nurses on all days of the week. because i asked it to not staff nurses more than three days.
-the will not be enough nurses to staff all days of the week. 
+Currently, the code will not staff nurses on all days of the week. because I asked it to not staff nurses more than three days.
+the will not be enough nurses to staff all days of the week.
 
 challenges:
 1. modify the code so that it will staff nurses on all days. even if there's not enough nurses for the given day.
-  1. still distribute the nurses evenly every days. 
+  1. still distribute the nurses evenly every days.
   2. return a variable indicating that there's not enough nurses to staff all days and how many nurses are needed to staff all days.
 
 2. modify the code so that it will not prioriorize the 3 days a week rule.
-
-
   => {
       "Monday"=>["nurse10", "nurse11", "nurse12", "nurse13", "nurse14"],
       "Tuesday"=>[],

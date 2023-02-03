@@ -1,7 +1,5 @@
 <div>
-<%#= form_tag shift_assignments_path(@shift), method: :post  do %>
 <%= form_with(model: Assignment.new , shift_assignments_path(@shift)) do |form|%>
-  <%#= select_tag :nurse_id, options_from_collection_for_select(@nurses, :id, :name), include_blank: "Select a Nurse" %>
   <%= form.collection_select( :nurse_ids, Nurse.all.map, :id, :name, {include_blank: true,  include_hidden: false , multiple: true, class:""} ) %>
   <%= form.submit "Create Assignment", class: "btn btn-primary" %>
   <%#= submit_tag "Add Nurse", class: "btn btn-primary" %>
@@ -14,9 +12,3 @@
 
   <%= button_to "Destroy this shift", @shift, method: :delete %>
 </div>
-
-
-<%#= form_tag new_shift_assign_path(@shift), method: :post  do %>
-<%#= form_tag shift_assignments_path(@shift) do %>
-<%#= form_tag create_shift_assign_path(@shift), method: :post do %>
-<%#= form_with model: Assignment.new, shift_assignments_path do |form|  %>
