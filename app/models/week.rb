@@ -2,7 +2,7 @@
 class Week < ApplicationRecord
   belongs_to :year
 
-  has_many :shifts
+  has_many :shifts, dependent: :destroy
   accepts_nested_attributes_for :shifts
 
   #after_create :create_shifts

@@ -1,5 +1,5 @@
 class Nurse < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
   has_many :shifts, through: :assignments
   @nurses = Nurse.all
   @total_nurses = @nurses.count

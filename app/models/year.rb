@@ -1,6 +1,6 @@
 class Year < ApplicationRecord
 
-  has_many :weeks
+  has_many :weeks, dependent: :destroy
 
 
    after_create :create_weeks 
