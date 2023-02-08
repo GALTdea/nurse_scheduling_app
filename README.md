@@ -1,26 +1,23 @@
 # README
 
-##Nurse Scheduling App
-This application demonstrates the use of the round robin algorithm to balance a nurse schedule. 
-It initially started with the idea to experiment with algorithms, but It has evolved into a full application. 
+## Nurse Scheduling App
+This application demonstrates the use of the round robin algorithm to balance a nurse schedule.
+
+It was initially started as an algorithm challenge to address the issue of balancing nurses' schedules. As development progressed, the goal evolved to include implementation of the algorithm in a Ruby on Rails application. The application is still a work in progress, but this is my current design.
+
+## Models
+* Nurse
+* Shift
+* Assignment
+* Week
+* Year
 
 
-Things you may want to cover:
+## Algorithm
+The algorithm used to balanced the nurses schedule is known as the 'Round Robin' algorithm. It is a simple algorithm that takes a list of items and distributes them evenly across a number of buckets. In this case, the buckets are the shifts and the items are the nurses. The algorithm is implemented in the `Week` model.
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## To Do
+* Add integration tests
+* Refactor algorithm to use a more efficient algorithm
