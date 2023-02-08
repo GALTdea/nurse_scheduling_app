@@ -1,7 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##Nurse Scheduling App
+This application demonstrates the use of the round robin algorithm to balance a nurse schedule. 
+It initially started with the idea to experiment with algorithms, but It has evolved into a full application. 
+
 
 Things you may want to cover:
 
