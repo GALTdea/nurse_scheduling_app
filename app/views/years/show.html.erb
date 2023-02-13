@@ -12,7 +12,7 @@
 
 
 <% @year.weeks.each do |w| %>
-  <%= link_to w.start_date, week_path(w) %> <br>
+  <%= link_to w.start_date, year_week_path(@year, w) %> <br>
 <% end %>
 
 

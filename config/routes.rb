@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  
+resources :years do
+  resources :weeks, only: :show
+end
 
-
-
-resources :years
-
-resources :weeks do 
-  member do 
+resources :weeks do
+  resources :shifts
+  member do
     post 'create_shifts'
     post 'balance_schedule'
   end

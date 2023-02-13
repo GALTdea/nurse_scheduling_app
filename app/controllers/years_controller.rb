@@ -3,7 +3,8 @@ class YearsController < ApplicationController
 
   # GET /years or /years.json
   def index
-    @years = Year.all
+    # to list by descending order of create_at, use:
+    @years = Year.all.order("created_at DESC")
   end
 
   # GET /years/1 or /years/1.json
