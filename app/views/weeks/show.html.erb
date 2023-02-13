@@ -15,9 +15,7 @@
 
 <br>
 <% @week.shifts.each do |n|  %>
-  <%= link_to  n.name, shift_path(n) %>
-  <br>
-  
+  <%= link_to  Date.parse(n.date).strftime("%A"), shift_path(n) %> <br>
 <% end %>
 
 <br>
