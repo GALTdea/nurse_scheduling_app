@@ -57,7 +57,7 @@ class Week < ApplicationRecord
     end
     days_worked
   end
-  
+
   def self.balance_schedule(w)
     nurses_per_day = [10, 10, 10, 10, 10, 10, 10]
     days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
